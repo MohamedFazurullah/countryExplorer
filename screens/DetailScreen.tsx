@@ -1,38 +1,20 @@
-// CounterComponent.tsx
-
 import React from 'react';
-import {connect} from 'react-redux';
-import {RootState} from '../redux/reducers/rootReducer'; // Import RootState type
-import {increment, decrement} from '../redux/action/action1';
-import {View, Button, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
+import {useSelector, useDispatch} from 'react-redux';
+import {increment, decrement} from '../redux/counterSlice';
 
-interface CounterProps {
-  count: number;
-  increment: () => void;
-  decrement: () => void;
-}
+const Counter: React.FC = () => {
+  const counterValue = useSelector(state => state.counter.value);
+  const dispatch = useDispatch();
 
-const CounterComponent: React.FC<CounterProps> = ({
-  count,
-  increment,
-  decrement,
-}) => {
   return (
-    <View>
-      <Text>Count: {count}</Text>
-      <Button title="Increment" onPress={increment} />
-      <Button title="Decrement" onPress={decrement} />
+    // eslint-disable-next-line react-native/no-inline-styles
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      <Text>Counter: {counterValue}</Text>
+      <Button title="Increment" onPress={() => dispatch(increment())} />
+      <Button title="Decrement" onPress={() => dispatch(decrement())} />
     </View>
   );
 };
 
-const mapStateToProps = (state: RootState) => ({
-  count: state.count,
-});
-
-const mapDispatchToProps = {
-  increment,
-  decrement,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CounterComponent);
+export default Counter;
