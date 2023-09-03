@@ -1,5 +1,12 @@
 import React, {memo, useCallback, useEffect, useState} from 'react';
-import {View, Button, TextInput, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Button,
+  TextInput,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+} from 'react-native';
 //import {Checkbox} from 'react-native-paper';
 import Checkbox from '@react-native-community/checkbox';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -104,38 +111,53 @@ const Home = () => {
   }, [isChecked, retrieveData]);
 
   return (
-    <View style={Styles.MainContainer}>
-      <View style={{padding: 10}}>
-        <TextInput
-          value={userName}
-          onChangeText={handleUserName}
-          placeholder={'userName'}
-        />
-        {isUsrValidate && <Text style={{color: 'red'}}>{validation}</Text>}
-      </View>
-      <View style={{padding: 10}}>
-        <TextInput
-          value={password}
-          onChangeText={handlepassword}
-          placeholder={'password'}
-        />
-        {isPassValidate && <Text style={{color: 'red'}}>{validation}</Text>}
-      </View>
-      <View>
-        <Button
-          title={'submit'}
-          onPress={() => onSubmit()}
-          //disabled={isBtnEnable}
-        />
-      </View>
+    <SafeAreaView style={{flex: 1, justifyContent: 'center'}}>
+      <View style={Styles.MainContainer}>
+        <View
+          style={{
+            padding: 5,
+            borderRadius: 40,
+            borderWidth: 0.5,
+            marginTop: 10,
+          }}>
+          <TextInput
+            value={userName}
+            onChangeText={handleUserName}
+            placeholder={'userName'}
+          />
+          {isUsrValidate && <Text style={{color: 'red'}}>{validation}</Text>}
+        </View>
+        <View
+          style={{
+            padding: 5,
+            borderRadius: 40,
+            borderWidth: 0.5,
+            marginTop: 10,
+          }}>
+          <TextInput
+            value={password}
+            onChangeText={handlepassword}
+            placeholder={'password'}
+          />
+          {isPassValidate && <Text style={{color: 'red'}}>{validation}</Text>}
+        </View>
+        <View style={{marginTop: 10}}>
+          <Button
+            color={'black'}
+            title={'submit'}
+            onPress={() => onSubmit()}
+            //disabled={isBtnEnable}
+          />
+        </View>
 
-      <View style={{flexDirection: 'row', padding: 10}}>
-        <Checkbox value={isChecked} onChange={toggleCheckBox} />
-        <Text style={{marginLeft: 10, marginTop: 5, color: 'black'}}>
-          {isChecked ? 'Credentials saved' : 'Credentials Not Saved'}
-        </Text>
+        <View style={{flexDirection: 'row', padding: 10}}>
+          <Checkbox value={isChecked} onChange={toggleCheckBox} />
+          <Text style={{marginLeft: 10, marginTop: 5, color: 'black'}}>
+            {isChecked ? 'Credentials saved' : 'Credentials Not Saved'}
+          </Text>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 const Styles = StyleSheet.create({
