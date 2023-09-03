@@ -1,9 +1,20 @@
+import {render, fireEvent} from '@testing-library/react-native';
 import DetailScreen from './DetailScreen';
+import React from 'react';
 
-describe('function increment and decrement', () => {
+describe('counter reducer', () => {
   it('increment', () => {
-    const inrementDecrement = render(<DetailScreen />);
+    const {getByText} = render(<DetailScreen />);
+    const incrementButton = getByText('Increment');
+    const countText = getByText('count: 0');
+    fireEvent.press(incrementButton);
+    expect(countText.props.children).toBe('count: 1');
   });
-  expect(inrementDecrement.findByText('increment')).toBeDefined();
-  expect(inrementDecrement.findByText('Decrement')).toBeDefined();
+  it('decrement', () => {
+    const {getByText} = render(<DetailScreen />);
+    const decrementButton = getByText('Decrement');
+    const countText = getByText('count: 0');
+    fireEvent.press(decrementButton);
+    expect(countText.props.children).toBe('count: -1');
+  });
 });
